@@ -1,0 +1,58 @@
+.search-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.search-box {
+    background-color: #e1e1e1;
+    border: none;
+    border-radius: 15px;
+    height: 50px;
+    width: 280px;
+    margin-bottom: 30px;
+}
+
+.card-shimmer {
+    background-color: #e1e1e1;
+    height: 270px;
+    width: 195px;
+    border-radius: 13px;
+    
+}
+
+.card-img {
+    background-color: #d1cfcf;
+    width: 195px;
+    height: 160px;
+    border-top-left-radius: 13px;
+    border-top-right-radius: 13px;
+}
+
+
+.card-title {
+    width: 150px;
+    height: 10px;
+    background-color: #d1cfcf;
+    margin-top: 20px;
+    margin-left: 10px;
+    border-radius: 20px;
+}
+
+.card-sub-title {
+    width: 120px;
+    height: 10px;
+    background-color: #d1cfcf;
+    margin-top: 20px;
+    margin-left: 10px;
+    border-radius: 20px;
+}
+
+.card-area {
+    width: 90px;
+    height: 10px;
+    background-color: #d1cfcf;
+    margin-top: 10px;
+    margin-left: 10px;
+    border-radius: 20px;
+}

@@ -1,0 +1,31 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+
+.search-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+  
+.search{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.search-box{
+    background-color: #f7f4f9;
+    width: 280px;
+    margin-bottom: 30px;
+}
+
+.card-wrapper {
+    margin-top: 24px;
+    margin-bottom: 24px;
+}
+
+.meal-category{
+    color: rgb(166, 166, 166);
+}
