@@ -1,0 +1,26 @@
+.recipe-container{
+    margin: 10px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.recipe-top-content {
+    display: flex;
+    align-items: center;
+}
+
+.recipe-pic {
+    height: 350px;
+    width: 350px;
+}
+
+.recipe-instr {
+    margin-top: 20px;
+}
+
+.btn {
+    margin-top: 5px;
+    height: 40px;
+}

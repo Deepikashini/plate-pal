@@ -13,6 +13,12 @@
     margin-bottom: 30px;
 }
 
+.shimmer-elements {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
 .card-shimmer {
     background-color: #e1e1e1;
     height: 270px;
@@ -28,7 +34,6 @@
     border-top-left-radius: 13px;
     border-top-right-radius: 13px;
 }
-
 
 .card-title {
     width: 150px;
