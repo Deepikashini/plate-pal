@@ -59,3 +59,7 @@ body {
 .star-rating .star-filled {
     color: goldenrod;
 }
+
+.meal-name {
+    font-size: medium;
+}

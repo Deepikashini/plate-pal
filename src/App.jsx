@@ -15,7 +15,7 @@ const App = () => {
     <Provider store={store}>
       <Header />
       <Routes>
-            <Route 
+        <Route 
               path='/'
               element={<Body />}
             />
@@ -30,7 +30,7 @@ const App = () => {
             <Route 
               path="*" 
               element={<ErrorPage />} 
-            />
+        />   
       </Routes>
       <Footer />
   </Provider>

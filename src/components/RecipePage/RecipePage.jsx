@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import './Styles.css';
 import { Button, Modal, Form, Input, Select } from 'antd';
@@ -11,6 +11,7 @@ const RecipePage = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const navigate = useNavigate();
   const [formData, setFormData] = useState(null);
+  const recipeRef = useRef(null);
   
   useEffect(() => {
     const storedRecipe = localStorage.getItem(`recipe_${id}`);
@@ -68,7 +69,6 @@ const RecipePage = () => {
     setIsModalVisible(false);
   }
 
-  
   const onFinishFailed = (errorInfo) => {
     console.log('Failed:', errorInfo);
   };
@@ -94,7 +94,7 @@ const RecipePage = () => {
     if (formData) {
       const { firstName, lastName, email, country, city, address, state, phone, pinCode } = formData;
       if (firstName && lastName && email && country && city && address && state && phone && pinCode)
-      navigate('/order-confirmation', { state: {formData} });
+      navigate('/order-confirmation', { state: {formData, mealName: recipe.strMeal, mealId: recipe.idMeal} });
       return;
     }    
   }
@@ -102,7 +102,7 @@ const RecipePage = () => {
   return (
     <div className='detail-recipe-container'>
         
-        <div className='detail-header-container'>
+        <div ref={recipeRef} className='detail-header-container'>
           <img className='detail-recipe-pic' src={recipe.strMealThumb} alt={recipe.strMeal} />
           <div className='detail-head-sub-container'>
             <h1 className='detail-dish-name'>{recipe.strMeal}</h1> 
@@ -323,7 +323,7 @@ const RecipePage = () => {
               }}
             >
             <div className='btn-box'>
-              <Button className='detail-btn' type="primary" htmlType="submit" onClick={handlePurchase}>
+              <Button className='detail-btn' type="primary" htmlType="submit" shape="round" onClick={handlePurchase}>
                 Purchase
               </Button>
             </div>           

@@ -19,8 +19,6 @@ const Body = () => {
     meal.strMeal.toLowerCase().includes(searchText.toLowerCase())
   );
 
-  console.log('filteredMeals:', filteredMeals);
-
   useEffect(() => {
     fetchRandomSeafoodMeals();
   }, []);
@@ -31,7 +29,6 @@ const Body = () => {
         'https://www.themealdb.com/api/json/v1/1/filter.php?c=Seafood'
       );
       const data = await response.json();
-      console.log('1st API response:', data);
       const randomMealIds = getRandomMealIds(data.meals, 10);
       const randomMeals = await fetchMealsByIds(randomMealIds);
       dispatch(setMeals(randomMeals));
@@ -51,7 +48,6 @@ const Body = () => {
         const url = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`;
         const response = await fetch(url);
         const data = await response.json();
-        console.log('API response:', data); // Log the API response
         return data.meals[0];
       } catch (error) {
         console.error(`Error fetching meal with ID ${id}:`, error);
@@ -112,7 +108,7 @@ const Body = () => {
                     <Tooltip title={meal.strMeal}>
                       <Meta
                         title={
-                          <Text ellipsis={{ rows: 2 }} style={{ marginBottom: 8 }}>
+                          <Text className='meal-name'>
                             {meal.strMeal}
                           </Text>
                         }
