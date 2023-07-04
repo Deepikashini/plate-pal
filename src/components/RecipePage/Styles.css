@@ -1,6 +1,7 @@
 .detail-dish-name{
     text-align: start;
     display: flex;
+    margin-bottom: 0px;
 }
 
 .detail-title {
@@ -69,4 +70,11 @@
     margin-bottom: 0;
     padding: 0;
 }
+
+.detail-ingreds {
+    color: gray;
+    display: flex;
+}
+
+
 
