@@ -2,6 +2,7 @@
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
+  
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -24,8 +25,8 @@ body:hover::-webkit-scrollbar-thumb {
   background-color: rgba(0, 0, 0, 0.3);
 }
 body {
-  scrollbar-width: thin; /* for Firefox */
-  -ms-overflow-style: none; /* for Internet Explorer and Edge */
+  scrollbar-width: thin; 
+  -ms-overflow-style: none; 
 }
 
 body::-webkit-scrollbar {
@@ -43,7 +44,6 @@ body::-webkit-scrollbar-track {
 
 .search-box input {
   background-color: #f5ebfc;
-  /* padding-left: 40px; */
   border: none;
 }
 

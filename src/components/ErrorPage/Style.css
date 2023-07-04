@@ -1,0 +1,12 @@
+.err-btn { 
+    height: 38px;
+    background-color: #bb34fa; 
+    border: #bb34fa;
+}
+
+.err-btn:hover,
+.err-btn:focus,
+.err-btn:active {
+  background-color: #bb34fa !important;
+  border-color: #bb34fa !important;
+}

@@ -6,6 +6,7 @@ import { Provider } from "react-redux";
 import store from "./utils/store";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import OrderConfirmation from "./components/OrderConfirmation/OrderConfirmation";
+import ErrorPage from './components/ErrorPage/ErrorPage';
 
 
 const App = () => {
@@ -25,6 +26,10 @@ const App = () => {
             <Route
               path='/order-confirmation'
               element={<OrderConfirmation />}
+            />
+            <Route 
+              path="*" 
+              element={<ErrorPage />} 
             />
       </Routes>
       <Footer />

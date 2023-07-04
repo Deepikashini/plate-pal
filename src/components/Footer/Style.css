@@ -1,0 +1,24 @@
+
+.footer-content {
+    text-align: center;
+    font-weight: 600;
+    margin-top: 10px;
+    height:auto;
+    padding: 10px;
+    border: 1px solid #cccccc7c;
+    border-radius: 4px;
+    margin-top: 25px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.a-link {
+    color: #bb34fa;
+}
+
+.content {
+    margin: 0;
+    padding: 10px;
+}
+
+
+ 
