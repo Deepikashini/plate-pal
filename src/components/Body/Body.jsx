@@ -1,18 +1,20 @@
 import { useEffect, useState } from 'react';
 import { SearchOutlined } from '@ant-design/icons';
-import { Input, Card, Row, Col } from 'antd';
+import { Input, Card, Row, Col, Typography, Tooltip } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import { setMeals } from '../../utils/mealSlice';
 import './Styles.css';
 import Shimmer from '../ShimmerUi/Shimmer';
 import { Link } from 'react-router-dom';
 const { Meta } = Card;
+const { Text } = Typography;
+
 
 const Body = () => {
   const [searchText, setSearchText] = useState('');
   const dispatch = useDispatch();
   const meals = useSelector((store) => store.meals);
-
+  const rating = 4.5;
   const filteredMeals = meals.filter((meal) =>
     meal.strMeal.toLowerCase().includes(searchText.toLowerCase())
   );
@@ -80,7 +82,7 @@ const Body = () => {
 
       <Row justify="center">
         <Col xs={24} sm={24} md={24} lg={20} xl={20}>
-          <Row gutter={[24, 24]} justify="center">
+          <Row gutter={[24, 24]} justify="flex-start">
             {filteredMeals.map((meal) => (
               <Col xs={24} sm={12} md={8} lg={4} xl={4} key={meal.idMeal}>
                 <Link to={{
@@ -96,19 +98,33 @@ const Body = () => {
                       height: '100%',
                       display: 'flex',
                       flexDirection: 'column',
+                      
                     }}
                     cover={
                       <img
                         alt={meal.strMeal}
                         src={meal.strMealThumb}
-                        style={{
-                          width: '100%',
-                        }}
+                        className='cover-img'
                       />
                     }
                   >
-                    <Meta title={meal.strMeal} description={meal.strArea} />
+                    {/* hovering over the title will display the full name of the meal */}
+                    <Tooltip title={meal.strMeal}>
+                      <Meta
+                        title={
+                          <Text ellipsis={{ rows: 2 }} style={{ marginBottom: 8 }}>
+                            {meal.strMeal}
+                          </Text>
+                        }
+                      />
+                    </Tooltip>                  
+                    <p className="meal-category">{meal.strArea}</p>
                     <p className="meal-category">{meal.strCategory}</p>
+                    <div className="star-rating">
+                      {[...Array(5)].map((_, index) => (
+                          <span key={index} className={index < rating ? 'star-filled' : 'star-empty'}>&#9733;</span>
+                      ))}
+                    </div>
                   </Card>
                 </Link>
               </Col>

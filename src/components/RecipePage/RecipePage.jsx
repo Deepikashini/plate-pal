@@ -1,14 +1,16 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import './Styles.css';
 import { Button, Modal, Form, Input, Select } from 'antd';
 import { Option } from 'antd/es/mentions';
 
 const RecipePage = () => {
-  const [size] = useState('large');
+  
   const { id } = useParams();
   const [recipe, setRecipe] = useState(null);
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const navigate = useNavigate();
+  const [formData, setFormData] = useState(null);
   
   useEffect(() => {
     const storedRecipe = localStorage.getItem(`recipe_${id}`);
@@ -66,9 +68,7 @@ const RecipePage = () => {
     setIsModalVisible(false);
   }
 
-  const onFinish = (values) => {
-    console.log('Success:', values);
-  };
+  
   const onFinishFailed = (errorInfo) => {
     console.log('Failed:', errorInfo);
   };
@@ -84,184 +84,252 @@ const RecipePage = () => {
       </Select>
     </Form.Item>
   );
+
+  const onFinish = (values) => {
+    setFormData(values);
+  };
   
+
   const handlePurchase = () => {
-    alert('Done');    
+    if (formData) {
+      const { firstName, lastName, email, country, city, address, state, phone, pinCode } = formData;
+      if (firstName && lastName && email && country && city && address && state && phone && pinCode)
+      navigate('/order-confirmation', { state: {formData} });
+      return;
+    }    
   }
 
   return (
-    <div className='recipe-container'>
-      <div className='recipe-img'>
-        <img className='recipe-pic' src={recipe.strMealThumb} alt={recipe.strMeal} />
-      </div> 
-      <div>
-        <h1>{recipe.strMeal}</h1>  
-        <h2>Ingredients: </h2>
-        <ul>
-          {ingredients.map((item, index) => (
-            <li key={index}>
-              {item.ingredient} - {item.measurement}
-            </li>
-          ))}
-        </ul>
-      </div>
-      
-      <div className='recipe-instr'>
-        <h2>Instruction: </h2>
-        {recipe.strInstructions.split('.').map((sentence, index) => {
-          const trimmedSentence = sentence.trim();
-          if (trimmedSentence !== '' && !/^\d+/.test(trimmedSentence)) {
-            return (
-              <p key={index}>
-                <strong>Step {index + 1}:</strong> {trimmedSentence}
-              </p>
-            );
-          } else {
-            return null;
-          }
-        })}
-      </div>
-      <Button className='btn' type="primary" shape="round" size={size} onClick={handleOpenModal}>Checkout</Button>
-      <Modal
-        title='Form'
-        visible={isModalVisible}
-        onCancel={handleCloseModal}
-        footer={null}
-      >
-        <Form
-          name="basic"
-          labelCol={{span: 8,}}
-          wrapperCol={{span: 16,}}
-          style={{maxWidth: 600,}}
-          initialValues={{remember: true,}}
-          onFinish={onFinish}
-          onFinishFailed={onFinishFailed}
-          autoComplete="off"
-        >
-          <Form.Item
-            label="First Name"
-            name="firstName"
-            rules={[
-              {
-                required: true,
-                message: 'Please input your First Name!',
-              },
-            ]}
-          >
-            <Input />
-          </Form.Item>
-
-          <Form.Item
-            label="Last Name"
-            name="lastName"
-            rules={[
-              {
-                required: true,
-                message: 'Please input your Last Name!',
-              },
-            ]}
-          >
-            <Input />
-          </Form.Item>
-
-          <Form.Item
-            label="Email"
-            name="email"
-            rules={[
-              {
-                required: true,
-                message: 'Please enter your Email!',
-              },
-            ]}
-          >
-            <Input />
-          </Form.Item>
-
-          <Form.Item
-            label="Country"
-            name="country"
-            rules={[
-              {
-                required: true,
-                message: 'Please enter your Country!',
-              },
-            ]}
-          >
-            <Input />
-          </Form.Item>
-
-          <Form.Item
-            label="City"
-            name="city"
-            rules={[
-              {
-                required: true,
-                message: 'Please enter your city!',
-              },
-            ]}
-          >
-            <Input />
-          </Form.Item>
-
-          <Form.Item
-            label="Address"
-            name="address"
-            rules={[
-              {
-                required: true,
-                message: 'Please enter your Address!',
-              },
-            ]}
-          >
-            <Input />
-          </Form.Item>
-
-          <Form.Item
-            label="State"
-            name="state"
-            rules={[
-              {
-                required: true,
-                message: 'Please enter your State!',
-              },
-            ]}
-          >
-            <Input />
-          </Form.Item>
+    <div className='detail-recipe-container'>
+        
+        <div className='detail-header-container'>
+          <img className='detail-recipe-pic' src={recipe.strMealThumb} alt={recipe.strMeal} />
+          <div className='detail-head-sub-container'>
+            <h1 className='detail-dish-name'>{recipe.strMeal}</h1> 
+            <Button className='detail-btn' type="primary" shape="round" size='large' onClick={handleOpenModal}>Checkout</Button>
+          </div>
           
-          <Form.Item
-            name="phone"
-            label="Phone Number"
-            rules={[
-              {
-                required: true,
-                message: 'Please input your phone number!',
-              },
-            ]}
-          >
-            <Input
-              addonBefore={prefixSelector}
-              style={{
-                width: '100%',
-              }}
-            />
-          </Form.Item>
-          
-          <Form.Item
-            wrapperCol={{
-              offset: 8,
-              span: 16,
-            }}
-          >
-             
-            <Button type="primary" htmlType="submit" onClick={handlePurchase}>
-              Purchase
-            </Button>
+        </div> 
+
+        <div className='detail-ingre-container'>
            
+          <h2 className='detail-title'>Ingredients: </h2>
+            <ul>
+              {ingredients.map((item, index) => (
+                <li key={index}>
+                  {item.ingredient} - {item.measurement}
+                </li>
+              ))}
+            </ul>
+        </div>
+        
+        <div className='detail-recipe-instr'>
+          <h2 className='title'>Instruction:</h2>
+          {recipe.strInstructions.split('.').map((sentence, index) => {
+            const trimmedSentence = sentence.trim();
+            let cleanedSentence = trimmedSentence;
+            
+            // Remove step numbers at the beginning of the sentence
+            cleanedSentence = cleanedSentence.replace(/^\s*STEP \d+ -\s*/, '');
+            
+            if (cleanedSentence !== '' && !/^\d+/.test(cleanedSentence)) {
+              return (
+                <p key={index}>
+                  <strong>Step {index + 1}:</strong> {cleanedSentence}
+                </p>
+              );
+            } else {
+              return null;
+            }
+          })}
+        </div>
+
+        
+        <Modal
+          title='Shipping Information'
+          open={isModalVisible}
+          onCancel={handleCloseModal}
+          footer={null}
+        >
           
-        </Form.Item>
-        </Form>
-      </Modal>
+          <Form
+            name="basic"
+            labelCol={{span: 8,}}
+            wrapperCol={{span: 16,}}
+            style={{maxWidth: 600,}}
+            initialValues={{remember: true,}}
+            onFinish={onFinish}
+            onFinishFailed={onFinishFailed}
+            autoComplete="off"
+          >
+            <Form.Item
+              label="First Name"
+              name="firstName"
+              rules={[
+                {
+                  required: true,
+                  message: 'This field is mandatory',
+                },
+                {
+                  pattern: /^[a-zA-Z\s]+$/,
+                  message: 'Invalid entry. Only letters and whitespace are allowed.',
+                },
+              ]}
+            >
+              <Input />
+            </Form.Item>
+
+            <Form.Item
+              label="Last Name"
+              name="lastName"
+              rules={[
+                {
+                  required: true,
+                  message: 'This field is mandatory',
+                },
+                {
+                  pattern: /^[a-zA-Z\s]+$/,
+                  message: 'Invalid entry. Only letters and whitespace are allowed.',
+                },
+              ]}
+            >
+              <Input />
+            </Form.Item>
+
+            <Form.Item
+              label="Address"
+              name="address"
+              rules={[
+                {
+                  required: true,
+                  message: 'Please enter your Address!',
+                },
+              ]}
+            >
+              <Input />
+            </Form.Item>
+
+            <Form.Item
+              label="City"
+              name="city"
+              rules={[
+                {
+                  required: true,
+                  message: 'This field is mandatory',
+                },
+                {
+                  pattern: /^[a-zA-Z\s]+$/,
+                  message: 'Invalid entry. Only letters and whitespace are allowed.',
+                },
+              ]}
+            >
+              <Input />
+            </Form.Item>
+
+            <Form.Item
+              label="Pin Code"
+              name="pinCode"
+              rules={[
+                {
+                  required: true,
+                  message: 'This field is mandatory',
+                },
+                {
+                  pattern: /^[0-9]+$/,
+                  message: 'Invalid entry. Only numbers are allowed.',
+                },
+              ]}
+            >
+              <Input />
+            </Form.Item>
+
+            <Form.Item
+              label="State"
+              name="state"
+              rules={[
+                {
+                  required: true,
+                  message: 'This field is mandatory',
+                },
+                {
+                  pattern: /^[a-zA-Z\s]+$/,
+                  message: 'Invalid entry. Only letters and whitespace are allowed.',
+                },
+              ]}
+            >
+              <Input />
+            </Form.Item>
+
+            <Form.Item
+              label="Country"
+              name="country"
+              rules={[
+                {
+                  required: true,
+                  message: 'This field is mandatory',
+                },
+                {
+                  pattern: /^[a-zA-Z\s]+$/,
+                  message: 'Invalid entry. Only letters and whitespace are allowed.',
+                },
+              ]}
+            >
+              <Input />
+            </Form.Item>
+
+            <Form.Item
+              label="Email"
+              name="email"
+              rules={[
+                {
+                  required: true,
+                  message: 'Please enter your Email!',
+                },
+                {
+                  type: 'email',
+                  message: 'Invalid email format. Please enter a valid email address.',
+                },
+              ]}
+            >
+              <Input />
+            </Form.Item>
+            
+            <Form.Item
+              name="phone"
+              label="Phone Number"
+              rules={[
+                {
+                  required: true,
+                  message: 'Please input your phone number!',
+                },
+                {
+                  pattern: /^\d{10}$/,
+                  message: 'Invalid phone number. Please enter a 10-digit phone number.',
+                },
+              ]}
+            >
+              <Input
+                addonBefore={prefixSelector}
+                style={{
+                  width: '100%',
+                }}
+              />
+            </Form.Item>
+            
+            <Form.Item
+              wrapperCol={{
+                offset: 8,
+                span: 16,
+              }}
+            >
+            <div className='btn-box'>
+              <Button className='detail-btn' type="primary" htmlType="submit" onClick={handlePurchase}>
+                Purchase
+              </Button>
+            </div>           
+          </Form.Item>
+          </Form>
+        </Modal>
     </div>
   );
 };

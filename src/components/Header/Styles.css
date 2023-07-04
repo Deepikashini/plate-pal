@@ -2,8 +2,18 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 10px;
-  }
+    border: 1px solid #cccccc7c;
+    border-radius: 4px;
+    background-color: white; 
+    height: auto;
+    padding: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.header-title {
+  cursor: pointer;
+  margin-bottom: 0;
+}
   
 .sec-name {
     color: #bb34fa;

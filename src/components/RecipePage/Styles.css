@@ -1,26 +1,72 @@
-.recipe-container{
+.detail-dish-name{
+    text-align: start;
+    display: flex;
+}
+
+.detail-title {
+    color: #bb34fa;
+    margin-top: 24px;
+}
+
+.detail-recipe-container{
     margin: 10px;
     padding: 10px;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
 }
 
-.recipe-top-content {
+.detail-recipe-pic {
+    height: 320px;
+    width: 450px;
+}
+
+.detail-header-container {
     display: flex;
+    flex-direction: row; 
     align-items: center;
 }
 
-.recipe-pic {
-    height: 350px;
-    width: 350px;
+.detail-head-sub-container {
+    margin-left: 16px;
 }
 
-.recipe-instr {
+@media screen and (max-width:700px) {
+    .detail-header-container {
+        display: flex;
+        flex-direction: column; 
+        align-items: flex-start;
+    }
+    .detail-head-sub-container {
+        margin-left: 0px;
+   }
+}
+
+.detail-ingre-container {
+    display: flex;
+    align-content: flex-start;
+    flex-direction: column;
+}
+.detail-recipe-instr {
     margin-top: 20px;
 }
 
-.btn {
-    margin-top: 5px;
-    height: 40px;
+.detail-btn { 
+    height: 44px;  
+    background-color: green; 
+    border: green;
 }
+
+.detail-btn:hover,
+.detail-btn:focus,
+.detail-btn:active {
+  background-color: green !important;
+  border-color: green !important;
+}
+
+.btn-box {
+    margin-left: 45px;
+    margin-bottom: 0;
+    padding: 0;
+}
+
