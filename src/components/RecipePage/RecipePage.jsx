@@ -106,6 +106,7 @@ const RecipePage = () => {
           <img className='detail-recipe-pic' src={recipe.strMealThumb} alt={recipe.strMeal} />
           <div className='detail-head-sub-container'>
             <h1 className='detail-dish-name'>{recipe.strMeal}</h1> 
+            <p className='detail-ingreds'>{ingredients.length} Ingredients</p>
             <Button className='detail-btn' type="primary" shape="round" size='large' onClick={handleOpenModal}>Checkout</Button>
           </div>
           
